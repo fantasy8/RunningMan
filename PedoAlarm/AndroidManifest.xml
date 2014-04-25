@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.fengchao.pedoalarm"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-permission android:name="android.permission.VIBRATE" >      </uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.fengchao.pedoalarm.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name="com.fengchao.pedoalarm.TimeReciever"
+            android:process=":remote" >
+        </receiver>
+
+        <receiver
+            android:name="com.fengchao.pedoalarm.DeviceAdminSample"
+            android:description="@string/hello_world"
+            android:label="RunningMate"
+            android:permission="android.permission.BIND_DEVICE_ADMIN" >
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin_sample" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+        
+        <receiver
+            android:name="com.fengchao.pedoalarm.bootalarm"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter android:priority="500" >
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.fengchao.pedoalarm.Init"
+            android:label="@string/title_activity_init"
+            android:parentActivityName="com.fengchao.pedoalarm.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fengchao.pedoalarm.MainActivity" />
+        </activity>
+    </application>
+
+</manifest>
